@@ -20,6 +20,33 @@ todoService
     .catch((error) => {
     console.error("Error fetching todos:", error);
 });
+const topicEl = document.getElementById("blog-topic");
+function loadTopic() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const response = yield fetch("https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1");
+            if (!response.ok)
+                throw new Error("Topic not found");
+            const data = yield response.json();
+            topicEl.textContent = data.content;
+            console.log("Fetched topic:", data.content);
+        }
+        catch (err) {
+            topicEl.textContent = "📝 My Simple Blog";
+            console.warn("Topic fetch failed, using default.");
+        }
+    });
+}
+loadTopic();
+topicEl.addEventListener("blur", () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const newContent = ((_a = topicEl.textContent) === null || _a === void 0 ? void 0 : _a.trim()) || "📝 My Simple Blog";
+    yield fetch("https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: newContent }),
+    });
+}));
 // In main.ts
 function renderTodos(todos) {
     const ul = document.getElementById("todo-list");
