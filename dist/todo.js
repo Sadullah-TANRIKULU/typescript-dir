@@ -1,10 +1,7 @@
 export class ToDo {
-    constructor(id, text, completed = false) {
+    constructor(id, text, writer) {
         this.id = id;
         this.text = text;
-        this.completed = completed;
-    }
-    toggle() {
-        this.completed = !this.completed;
+        this.writer = writer;
     }
 }

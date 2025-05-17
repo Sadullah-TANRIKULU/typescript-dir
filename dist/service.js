@@ -7,7 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-// service.ts
 import { ToDo } from "./todo.js";
 export class ToDoService {
     constructor(apiUrl) {
@@ -19,7 +18,7 @@ export class ToDoService {
             if (!response.ok)
                 throw new Error('Failed to fetch');
             const data = yield response.json();
-            return data.map(item => new ToDo(item.id, item.text, item.completed));
+            return data.map(item => new ToDo(item.id, item.text, item.writer));
         });
     }
     add(todo) {
@@ -30,9 +29,9 @@ export class ToDoService {
                 body: JSON.stringify(todo),
             });
             if (!response.ok)
-                throw new Error('Failed to add todo');
+                throw new Error('Failed to add comment');
             const data = yield response.json();
-            return new ToDo(data.id, data.text, data.completed);
+            return new ToDo(data.id, data.text, data.writer);
         });
     }
     update(todo) {
@@ -43,9 +42,9 @@ export class ToDoService {
                 body: JSON.stringify(todo),
             });
             if (!response.ok)
-                throw new Error('Failed to update todo');
+                throw new Error('Failed to update comment');
             const data = yield response.json();
-            return new ToDo(data.id, data.text, data.completed);
+            return new ToDo(data.id, data.text, data.writer);
         });
     }
     delete(id) {
@@ -54,21 +53,7 @@ export class ToDoService {
                 method: 'DELETE',
             });
             if (!response.ok)
-                throw new Error('Failed to delete todo');
-        });
-    }
-    // In service.ts
-    toggleTodo(todo) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.apiUrl}/${todo.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(Object.assign(Object.assign({}, todo), { completed: !todo.completed })),
-            });
-            if (!response.ok)
-                throw new Error('Failed to toggle todo');
-            const data = yield response.json();
-            return new ToDo(data.id, data.text, data.completed);
+                throw new Error('Failed to delete comment');
         });
     }
 }

@@ -119,19 +119,24 @@
         transition: background 0.2s;
         z-index: 1;
       }
-
       #add-btn:hover {
         background: #388e3c;
       }
+      .writer {
+        margin-right: 8px;
+        color: #4caf50;
+        font-weight: bold;
+      }
     </style>
-    <title>
-      Deutsch-B2-Blog
-    </title>
+    <title>Deutsch-B2-Blog</title>
   </head>
   <body>
     <h2>Deutsch-Madam-Kellers-Blog</h2>
-    <h1 id="blog-topic" contenteditable="true" title="Click to edit the topic"></h1>
-
+    <h1
+      id="blog-topic"
+      contenteditable="true"
+      title="Click to edit the topic"
+    ></h1>
 
     <div id="emoji-bar">
       <button type="button">🔥</button>
@@ -140,7 +145,13 @@
     </div>
 
     <div class="input-wrapper">
-      <input id="todo-input" type="text" placeholder="Add a todo..." />
+      <input
+        id="writer-input"
+        type="text"
+        placeholder="Writer..."
+        style="width: 120px; margin-right: 8px"
+      />
+      <input id="todo-input" type="text" placeholder="Add a comment..." />
       <button id="add-btn" type="button">Add</button>
     </div>
 

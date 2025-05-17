@@ -45,6 +45,10 @@ topicEl.addEventListener("blur", async () => {
   );
 });
 
+const writerInput = document.getElementById("writer-input") as HTMLInputElement;
+
+
+
 
 // In main.ts
 function renderTodos(todos: ToDo[]) {
@@ -55,40 +59,38 @@ function renderTodos(todos: ToDo[]) {
     const li = document.createElement("li");
     li.className = "todo-item";
 
-    // Text container
+    // Writer
+    const writerSpan = document.createElement("span");
+    writerSpan.className = "writer";
+    writerSpan.textContent = todo.writer + ": ";
+    writerSpan.style.fontWeight = "bold";
+    writerSpan.style.color = "#4caf50";
+    li.appendChild(writerSpan);
+
+    // Comment text
     const textSpan = document.createElement("span");
     textSpan.className = "todo-text";
     textSpan.textContent = todo.text;
     li.appendChild(textSpan);
-    // "done" badge if completed
-    if (todo.completed) {
-      const doneSpan = document.createElement("span");
-      doneSpan.className = "done-badge";
-      doneSpan.textContent = " (done)";
-      li.appendChild(doneSpan);
-    }
 
-    // Button container
+    // Button container (Update/Delete only)
     const btnContainer = document.createElement("div");
     btnContainer.className = "btn-container";
-
-    // Toggle Button
-    const toggleBtn = document.createElement("button");
-    toggleBtn.textContent = "Toggle";
-    toggleBtn.onclick = async () => {
-      await todoService.toggleTodo(todo);
-      const updatedTodos = await todoService.getAll();
-      renderTodos(updatedTodos);
-    };
-    btnContainer.appendChild(toggleBtn);
 
     // Update Button
     const updateBtn = document.createElement("button");
     updateBtn.textContent = "Update";
     updateBtn.onclick = async () => {
-      const newText = prompt("Update todo text:", todo.text);
-      if (newText !== null && newText.trim() !== "") {
+      const newText = prompt("Update comment text:", todo.text);
+      const newWriter = prompt("Update writer:", todo.writer);
+      if (
+        newText !== null &&
+        newText.trim() !== "" &&
+        newWriter !== null &&
+        newWriter.trim() !== ""
+      ) {
         todo.text = newText.trim();
+        todo.writer = newWriter.trim();
         await todoService.update(todo);
         const updatedTodos = await todoService.getAll();
         renderTodos(updatedTodos);
@@ -111,18 +113,20 @@ function renderTodos(todos: ToDo[]) {
   });
 }
 
+
 const input = document.getElementById("todo-input") as HTMLInputElement;
 const addBtn = document.getElementById("add-btn") as HTMLButtonElement;
 
 async function addTodo() {
-  if (input.value.trim()) {
-    await todoService.add(new ToDo("", input.value, false));
+  if (input.value.trim() && writerInput.value.trim()) {
+    await todoService.add(new ToDo("", input.value, writerInput.value));
     const todos = await todoService.getAll();
     renderTodos(todos);
-    console.log("Todo added:", input.value);
     input.value = "";
+    writerInput.value = "";
   }
 }
+
 
 // Add button click
 addBtn.onclick = addTodo;

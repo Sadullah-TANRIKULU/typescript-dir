@@ -5,12 +5,8 @@ export class ToDo implements ToDoItem {
   constructor(
     public id: string,
     public text: string,
-    public completed: boolean = false
+    public writer: string,
   ) {}
-
-  toggle(): void {
-    this.completed = !this.completed;
-  }
 
 
 
