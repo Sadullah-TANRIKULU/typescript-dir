@@ -17,30 +17,34 @@ todoService
 const topicEl = document.getElementById("blog-topic") as HTMLElement;
 
 async function loadTopic() {
-  const response = await fetch(
-    "https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1"
-  );
-  const data = await response.json();
-  topicEl.textContent = data.content;
-  console.log("Fetched topic:", data.content);
-  
+  try {
+    const response = await fetch(
+      "https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1"
+    );
+    if (!response.ok) throw new Error("Topic not found");
+    const data = await response.json();
+    topicEl.textContent = data.content;
+    console.log("Fetched topic:", data.content);
+  } catch (err) {
+    topicEl.textContent = "📝 My Simple Blog";
+    console.warn("Topic fetch failed, using default.");
+  }
 }
 
 loadTopic();
 
 topicEl.addEventListener("blur", async () => {
-  const newContent = topicEl.textContent?.trim();
-  if (newContent) {
-    await fetch(
-      "https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1",
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: newContent }),
-      }
-    );
-  }
+  const newContent = topicEl.textContent?.trim() || "📝 My Simple Blog";
+  await fetch(
+    "https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1",
+    {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content: newContent }),
+    }
+  );
 });
+
 
 // In main.ts
 function renderTodos(todos: ToDo[]) {
