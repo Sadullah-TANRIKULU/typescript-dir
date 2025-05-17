@@ -68,6 +68,21 @@
         padding-top: 0.825rem;
         padding-bottom: 0.5rem;
       }
+      #emoji-bar {
+        margin-bottom: 8px;
+      }
+
+      #emoji-bar button {
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-right: 4px;
+        transition: transform 0.1s;
+      }
+      #emoji-bar button:hover {
+        transform: scale(1.2);
+      }
     </style>
     <title
       style="
@@ -89,7 +104,7 @@
       <button type="button">✅</button>
     </div>
 
-    <input id="todo-input" type="text" />
+    <input id="todo-input" type="text" placeholder="Add a todo..." />
     <button id="add-btn">Add</button>
     <ul id="todo-list"></ul>
 
