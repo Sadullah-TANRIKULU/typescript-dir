@@ -102,4 +102,11 @@ input.addEventListener("keydown", (event) => {
   }
 });
 
+document.querySelectorAll("#emoji-bar button").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    input.value += btn.textContent;
+    input.focus();
+  });
+});
+
 todoService.getAll().then(renderTodos);
