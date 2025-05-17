@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --omrs-color-ink-medium-contrast: rgba(19, 19, 21, 0.6);
+      }
+      body {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        color: #1d1f1d;
+        background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+      }
+
+      .todo-item {
+        display: flex;
+        align-items: flex-start; /* Align items at the top */
+        margin-bottom: 8px;
+      }
+
+      .todo-text {
+        width: 250px; /* Set your desired fixed width */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-wrap: wrap;
+        margin-right: 16px; /* Space between text and buttons */
+        color: rgb(61, 18, 18);
+      }
+
+      .btn-container {
+        display: flex;
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 8px; /* Space between buttons */
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 2px 2px;
+        cursor: pointer;
+      }
+      input {
+        font-family: "Barlow Condensed", sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        width: 350px; /* Set your desired fixed width */
+        margin-right: 16px; /* Space between input and button */
+        border: none;
+        border-bottom: 0.125rem solid var(--omrs-color-ink-medium-contrast);
+        height: 2rem;
+        font-size: 1.0625rem;
+        padding-left: 0.875rem;
+        line-height: 147.6%;
+        padding-top: 0.825rem;
+        padding-bottom: 0.5rem;
+      }
+    </style>
+    <title
+      style="
+        font-family: Barlow Condensed, sans-serif;
+        font-weight: 400;
+        font-style: italic;
+        width: 100%;
+      "
+    >
+      ToDo-List
+    </title>
+  </head>
+  <body>
+    <h1>ToDo-List</h1>
+
+    <input id="todo-input" type="text" />
+    <button id="add-btn">Add</button>
+    <ul id="todo-list"></ul>
+
+    <script type="module" src="dist/main.js"></script>
+  </body>
+</html>
