@@ -104,12 +104,4 @@ document.querySelectorAll("#emoji-bar button").forEach((btn) => {
         input.focus();
     });
 });
-const clearAllBtn = document.getElementById("clear-all-btn");
-clearAllBtn.onclick = () => __awaiter(void 0, void 0, void 0, function* () {
-    if (!confirm("Are you sure you want to delete all todos?"))
-        return;
-    const todos = yield todoService.getAll();
-    yield Promise.all(todos.map((todo) => todoService.delete(todo.id)));
-    renderTodos([]);
-});
 todoService.getAll().then(renderTodos);

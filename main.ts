@@ -14,6 +14,32 @@ todoService
     console.error("Error fetching todos:", error);
   });
 
+const topicEl = document.getElementById("blog-topic") as HTMLElement;
+
+async function loadTopic() {
+  const response = await fetch(
+    "https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1"
+  );
+  const data = await response.json();
+  topicEl.textContent = data.content;
+}
+
+loadTopic();
+
+topicEl.addEventListener("blur", async () => {
+  const newContent = topicEl.textContent?.trim();
+  if (newContent) {
+    await fetch(
+      "https://682646d1397e48c9131598ef.mockapi.io/api/v1/blogTopic/1",
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: newContent }),
+      }
+    );
+  }
+});
+
 // In main.ts
 function renderTodos(todos: ToDo[]) {
   const ul = document.getElementById("todo-list") as HTMLUListElement;
@@ -108,16 +134,5 @@ document.querySelectorAll("#emoji-bar button").forEach((btn) => {
     input.focus();
   });
 });
-
-const clearAllBtn = document.getElementById(
-  "clear-all-btn"
-) as HTMLButtonElement;
-
-clearAllBtn.onclick = async () => {
-  if (!confirm("Are you sure you want to delete all todos?")) return;
-  const todos = await todoService.getAll();
-  await Promise.all(todos.map((todo) => todoService.delete(todo.id)));
-  renderTodos([]);
-};
 
 todoService.getAll().then(renderTodos);
