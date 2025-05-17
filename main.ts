@@ -22,6 +22,8 @@ async function loadTopic() {
   );
   const data = await response.json();
   topicEl.textContent = data.content;
+  console.log("Fetched topic:", data.content);
+  
 }
 
 loadTopic();
