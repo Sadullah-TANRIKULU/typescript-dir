@@ -109,15 +109,11 @@ function renderTodos(todos: ToDo[]) {
     updateBtn.className = "action-btn update-btn";
     updateBtn.onclick = async () => {
       const newText = prompt("Update comment text:", todo.text);
-      const newWriter = prompt("Update writer:", todo.writer);
       if (
         newText !== null &&
-        newText.trim() !== "" &&
-        newWriter !== null &&
-        newWriter.trim() !== ""
+        newText.trim() !== ""
       ) {
         todo.text = newText.trim();
-        todo.writer = newWriter.trim();
         await todoService.update(todo);
         const updatedTodos = await todoService.getAll();
         renderTodos(updatedTodos);

@@ -97,13 +97,9 @@ function renderTodos(todos) {
         updateBtn.className = "action-btn update-btn";
         updateBtn.onclick = () => __awaiter(this, void 0, void 0, function* () {
             const newText = prompt("Update comment text:", todo.text);
-            const newWriter = prompt("Update writer:", todo.writer);
             if (newText !== null &&
-                newText.trim() !== "" &&
-                newWriter !== null &&
-                newWriter.trim() !== "") {
+                newText.trim() !== "") {
                 todo.text = newText.trim();
-                todo.writer = newWriter.trim();
                 yield todoService.update(todo);
                 const updatedTodos = yield todoService.getAll();
                 renderTodos(updatedTodos);
