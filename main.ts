@@ -14,6 +14,32 @@ todoService
     console.error("Error fetching todos:", error);
   });
 
+
+const loginArea = document.getElementById("login-area") as HTMLDivElement;
+const loginNameInput = document.getElementById("login-name") as HTMLInputElement;
+const loginBtn = document.getElementById("login-btn") as HTMLButtonElement;
+
+// Try to load writer from localStorage
+let writer = localStorage.getItem("writer");
+
+// If not logged in, show login area
+if (!writer) {
+  loginArea.style.display = "block";
+} else {
+  loginArea.style.display = "none";
+}
+
+// Login button logic
+loginBtn.onclick = () => {
+  const name = loginNameInput.value.trim();
+  if (name) {
+    localStorage.setItem("writer", name);
+    writer = name;
+    loginArea.style.display = "none";
+  }
+};
+
+
 const topicEl = document.getElementById("blog-topic") as HTMLElement;
 
 async function loadTopic() {
@@ -117,13 +143,13 @@ function renderTodos(todos: ToDo[]) {
 const input = document.getElementById("todo-input") as HTMLInputElement;
 const addBtn = document.getElementById("add-btn") as HTMLButtonElement;
 
+// When adding a comment, use the stored writer
 async function addTodo() {
-  if (input.value.trim() && writerInput.value.trim()) {
-    await todoService.add(new ToDo("", input.value, writerInput.value));
+  if (input.value.trim() && writer) {
+    await todoService.add(new ToDo("", input.value, writer));
     const todos = await todoService.getAll();
     renderTodos(todos);
     input.value = "";
-    writerInput.value = "";
   }
 }
 
