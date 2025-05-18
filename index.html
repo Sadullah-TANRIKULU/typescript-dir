@@ -24,6 +24,7 @@
         align-items: center;
         justify-content: center;
         min-height: 100vh; /* Ensures full viewport height */
+        padding-top: 72px; /* Space for fixed input bar */
       }
 
       .todo-item {
@@ -192,6 +193,19 @@
         width: 100%;
       }
 
+      .fixed-input-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        background: #fbc2ebee; /* semi-transparent for design */
+        z-index: 1000;
+        padding: 12px 0 6px 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        display: flex;
+        justify-content: center;
+      }
+
       /* Mobile-first media query */
       @media (max-width: 768px) {
         .input-wrapper {
@@ -263,18 +277,18 @@
       <button type="button">✅</button>
     </div>
 
-    <div class="input-wrapper">
-      <!-- <input
+    <div class="fixed-input-bar">
+      <div class="input-wrapper">
+        <!-- <input
         id="writer-input"
         type="text"
         placeholder="Writer..."
         style="width: 120px; margin-right: 8px"
       /> -->
-      <input id="todo-input" type="text" placeholder="Add a comment..." />
-      <button id="add-btn" type="button">Add</button>
+        <input id="todo-input" type="text" placeholder="Add a comment..." />
+        <button id="add-btn" type="button">Add</button>
+      </div>
     </div>
-
-    <hr />
 
     <ul id="todo-list"></ul>
 
