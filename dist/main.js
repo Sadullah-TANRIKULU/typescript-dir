@@ -93,7 +93,8 @@ function renderTodos(todos) {
         btnContainer.className = "btn-container";
         // Update Button
         const updateBtn = document.createElement("button");
-        updateBtn.textContent = "Update";
+        updateBtn.textContent = "✏️";
+        updateBtn.className = "action-btn update-btn";
         updateBtn.onclick = () => __awaiter(this, void 0, void 0, function* () {
             const newText = prompt("Update comment text:", todo.text);
             const newWriter = prompt("Update writer:", todo.writer);
@@ -111,7 +112,8 @@ function renderTodos(todos) {
         btnContainer.appendChild(updateBtn);
         // Delete Button
         const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
+        deleteBtn.textContent = "🗑️";
+        deleteBtn.className = "action-btn delete-btn";
         deleteBtn.onclick = () => __awaiter(this, void 0, void 0, function* () {
             yield todoService.delete(todo.id);
             const updatedTodos = yield todoService.getAll();
