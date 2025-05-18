@@ -151,4 +151,12 @@ document.querySelectorAll("#emoji-bar button").forEach((btn) => {
         input.focus();
     });
 });
+function startPolling() {
+    setInterval(() => __awaiter(this, void 0, void 0, function* () {
+        const todos = yield todoService.getAll();
+        renderTodos(todos);
+    }), 4000); // Fetch every 3 seconds
+}
+// Start polling after initial load
 todoService.getAll().then(renderTodos);
+startPolling();
