@@ -1,0 +1,13 @@
+{
+  "name": "Deutsch-Blog-App",
+  "short_name": "Deutsch-Blog",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "./assets/schweiz.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

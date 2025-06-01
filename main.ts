@@ -2,6 +2,12 @@
 import { ToDoService } from "./service.js";
 import { ToDo } from "./todo.js";
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js")
+    .then(reg => console.log("Service Worker registered!", reg))
+    .catch(err => console.error("Service Worker registration failed:", err));
+}
+
 const apiUrl = "https://682646d1397e48c9131598ef.mockapi.io/api/v1/todos";
 const todoService = new ToDoService(apiUrl);
 
@@ -14,9 +20,10 @@ todoService
     console.error("Error fetching todos:", error);
   });
 
-
 const loginArea = document.getElementById("login-area") as HTMLDivElement;
-const loginNameInput = document.getElementById("login-name") as HTMLInputElement;
+const loginNameInput = document.getElementById(
+  "login-name"
+) as HTMLInputElement;
 const loginBtn = document.getElementById("login-btn") as HTMLButtonElement;
 
 // Try to load writer from localStorage
@@ -38,7 +45,6 @@ loginBtn.onclick = () => {
     loginArea.style.display = "none";
   }
 };
-
 
 const topicEl = document.getElementById("blog-topic") as HTMLElement;
 
@@ -73,9 +79,6 @@ topicEl.addEventListener("blur", async () => {
 
 const writerInput = document.getElementById("writer-input") as HTMLInputElement;
 
-
-
-
 // In main.ts
 function renderTodos(todos: ToDo[]) {
   const ul = document.getElementById("todo-list") as HTMLUListElement;
@@ -109,10 +112,7 @@ function renderTodos(todos: ToDo[]) {
     updateBtn.className = "action-btn update-btn";
     updateBtn.onclick = async () => {
       const newText = prompt("Update comment text:", todo.text);
-      if (
-        newText !== null &&
-        newText.trim() !== ""
-      ) {
+      if (newText !== null && newText.trim() !== "") {
         todo.text = newText.trim();
         await todoService.update(todo);
         const updatedTodos = await todoService.getAll();
@@ -137,7 +137,6 @@ function renderTodos(todos: ToDo[]) {
   });
 }
 
-
 const input = document.getElementById("todo-input") as HTMLInputElement;
 const addBtn = document.getElementById("add-btn") as HTMLButtonElement;
 
@@ -150,7 +149,6 @@ async function addTodo() {
     input.value = "";
   }
 }
-
 
 // Add button click
 addBtn.onclick = addTodo;

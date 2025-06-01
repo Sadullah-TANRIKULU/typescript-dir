@@ -1,0 +1,28 @@
+// File: service-worker.ts
+const urlsToCache = [
+  "/",
+  "./index.html",
+  "./assets/schweiz.png",
+  "./manifest.json",
+  "./dist/main.js",
+  "./dist/i-todo.js",
+  "./dist/todo.js",
+  "./dist/service.js",
+];
+
+self.addEventListener("install", (event: Event) => {
+  const swEvent = event as ExtendableEvent;
+  swEvent.waitUntil(
+    caches.open("pwa-assets").then((cache) => {
+      return cache.addAll(urlsToCache);
+    })
+  );
+});
+
+self.addEventListener("fetch", (event: any) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
+});

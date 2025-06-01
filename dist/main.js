@@ -10,6 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // main.ts
 import { ToDoService } from "./service.js";
 import { ToDo } from "./todo.js";
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/service-worker.js")
+        .then(reg => console.log("Service Worker registered!", reg))
+        .catch(err => console.error("Service Worker registration failed:", err));
+}
 const apiUrl = "https://682646d1397e48c9131598ef.mockapi.io/api/v1/todos";
 const todoService = new ToDoService(apiUrl);
 todoService
@@ -97,8 +102,7 @@ function renderTodos(todos) {
         updateBtn.className = "action-btn update-btn";
         updateBtn.onclick = () => __awaiter(this, void 0, void 0, function* () {
             const newText = prompt("Update comment text:", todo.text);
-            if (newText !== null &&
-                newText.trim() !== "") {
+            if (newText !== null && newText.trim() !== "") {
                 todo.text = newText.trim();
                 yield todoService.update(todo);
                 const updatedTodos = yield todoService.getAll();
